@@ -1,0 +1,71 @@
+{% extends "layout.html" %}
+
+{% load i18n %}
+
+{% block content %}
+<main role="main" class="mt-1 md:mt-2">
+  <form action="/" method="post" class="w-full">
+    {% csrf_token %}
+
+    {% if errors %}
+    <div class="field field-errors errors
+                border border-red-400 rounded-sm
+                bg-red-200 text-red-700
+                px-2 py-2 mb-2 md:mb-3 lg:mb-4">
+      <ul>
+        {% for err in errors %}
+        <li>{{ err }}</li>
+        {% empty %}
+        <li>Unkown Error</li>
+        {% endfor %}
+      </ul>
+    </div>
+    {% endif %}
+
+    <div class="field field-lang">
+      <label for="language" class="font-semibold">Language</label>
+      <select
+        name="language" 
+        id="code" 
+        class="w-full border rounded-sm mt-2"
+        value="cpp"
+        required
+      >
+      {% for value, text in languages %}
+        {% if value == 'cpp' %}
+        <option value="{{ value }}" selected>{{ text }}</option>
+        {% else %}
+        <option value="{{ value }}">{{ text }}</option>
+        {% endif %}
+      {% endfor %}
+      </select>
+    </div>
+
+    <div class="field field-code mt-4">
+      <label for="code" class="font-semibold">Your Code</label>
+      <textarea 
+        name="code" 
+        id="code" 
+        rows="8" 
+        class="w-full border rounded-sm mt-1 px-2 py-2"
+        spellcheck="false"
+        autocomplete="off"
+        required
+      ></textarea>
+    </div>
+
+    <div class="field field-submit mt-4">
+      <button 
+        id="submit" 
+        type="submit" 
+        class="w-full border rounded text-gray-500 font-bold py-2
+                hover:text-white hover:bg-gray-500
+                transition-all"
+      >
+      {% translate 'Share' %}
+      </button>
+    </div>
+  </form>
+</main>
+{% endblock %}
+

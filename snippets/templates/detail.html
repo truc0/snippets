@@ -1,0 +1,26 @@
+{% extends 'layout.html' %}
+
+{% block style %}
+{{ block.super }}
+
+<style>
+  {% autoescape off %} 
+  {{ styles }}
+  {% endautoescape %}
+</style>
+{% endblock %}
+
+{% block content %}
+<main role="main">
+  <div class="wrapper border rounded-sm">
+    {% autoescape off %} 
+    {{ highlighted }}
+    {% endautoescape %}
+  </div>
+
+  <div class="share-box mt-2 border rounded-sm px-2 py-2 mt-2 mb-4">
+    {% translate 'Copy the link:' %} 
+    <a class="text-blue-800 hover:underline" href="{{ link }}">{{ link }}</a>
+  </div>
+</main>
+{% endblock %}

@@ -1,0 +1,11 @@
+{% extend 'base.html' %}
+
+{% block body %}
+<pre>
+{% autoescape off %}
+
+{{ content }}
+
+{% endautoescape %}
+</pre>
+{% endblock %}
