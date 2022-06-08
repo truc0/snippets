@@ -14,6 +14,7 @@ from pathlib import Path
 from django.utils.translation import ugettext_lazy as _
 
 from . import config
+import utils.utils as utils
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -85,12 +86,18 @@ WSGI_APPLICATION = 'pastebin.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/3.2/ref/settings/#databases
 
-DATABASES = {
+DEFAULT_DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
+        'ENGINE': 'django.db.backends.postgresql',
+        'NAME': utils.get_conf('POSTGRES_NAME', config),
+        'USER': utils.get_conf('POSTGRES_USER', config),
+        'PASSWORD': utils.get_conf('POSTGRES_PASSWORD', config),
+        'HOST': utils.get_conf('POSTGRES_HOST', config),
+        'PORT': utils.get_conf('POSTGRES_PORT', config, 5432),
     }
 }
+
+DATABASES = getattr(config, 'DATABASES', DEFAULT_DATABASES)
 
 
 # Password validation

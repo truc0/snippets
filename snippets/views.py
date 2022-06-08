@@ -61,4 +61,3 @@ def detail(request, pk):
 def raw(request, pk):
     snippet = get_object_or_404(Snippet, pk=pk)
     return snippet.code
-    
