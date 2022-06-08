@@ -28,7 +28,7 @@ def index(request):
             # create model
             snippet = Snippet.objects.create(code=code, language=language)
             return redirect(reverse('detail', args=[snippet.id]))
-        except:
+        except Exception:
             errors.append('Please make sure code and language is provided')
             return render(request, 'index.html', context={
                 'errors': errors,
@@ -44,7 +44,9 @@ def index(request):
 def detail(request, pk):
     snippet = get_object_or_404(Snippet, pk=pk)
     lexer = get_lexer_by_name(snippet.language, stripall=True)
-    formatter = HtmlFormatter(cssclass='highlight w-full px-2 py-2 overflow-auto')
+    formatter = HtmlFormatter(
+        cssclass='highlight w-full px-2 py-2 overflow-auto',
+    )
     html = highlight(snippet.code, lexer, formatter)
     css = formatter.get_style_defs('.highlight')
     context = {
@@ -53,11 +55,16 @@ def detail(request, pk):
         'styles': css,
         'link': request.build_absolute_uri(
             reverse('detail', args=[snippet.id])
-        )
+        ),
+        'raw_link': request.build_absolute_uri(
+            reverse('detail-raw', args=[snippet.id])
+        ),
     }
     return render(request, 'detail.html', context=context)
 
 
 def raw(request, pk):
     snippet = get_object_or_404(Snippet, pk=pk)
-    return snippet.code
+    return render(request, 'raw.html', context={
+        'content': snippet.code
+    })

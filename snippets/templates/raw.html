@@ -1,12 +1,8 @@
+{% extends 'base.html' %}
 {% load i18n %}
-{% extend 'base.html' %}
 
 {% block body %}
-<pre>
 {% autoescape off %}
-
-{{ content }}
-
+<pre class="font-mono">{{ content }}</pre>
 {% endautoescape %}
-</pre>
 {% endblock %}

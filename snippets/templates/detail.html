@@ -20,8 +20,14 @@
   </div>
 
   <div class="share-box mt-2 border rounded-sm px-2 py-2 mt-2 mb-4">
-    {% translate 'Copy the link:' %} 
-    <a class="text-blue-800 hover:underline" href="{{ link }}">{{ link }}</a>
+    <p>
+        {% translate 'Raw text:' %} 
+        <a class="text-blue-800 hover:underline" href="{{ raw_link }}">{{ raw_link }}</a>
+    </p>
+    <p>
+        {% translate 'Copy the link:' %} 
+        <a class="text-blue-800 hover:underline" href="{{ link }}">{{ link }}</a>
+    </p>
   </div>
 </main>
 {% endblock %}
